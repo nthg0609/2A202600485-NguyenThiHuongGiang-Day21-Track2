@@ -8,8 +8,15 @@ import os
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score
 
-EVAL_THRESHOLD = 0.70
+# =====================================================================
+# CẤU HÌNH TRỎ THẲNG VÀO FILE SQLITE ĐỂ KHỚP VỚI LỆNH BẬT UI
+mlflow.set_tracking_uri("sqlite:///mlflow.db")
+# =====================================================================
 
+# Đặt tên Experiment để dễ quản lý
+mlflow.set_experiment("RandomForest_Training")
+
+EVAL_THRESHOLD = 0.70
 
 def train(
     params: dict,
@@ -18,14 +25,6 @@ def train(
 ) -> float:
     """
     Huan luyen mo hinh va ghi nhan ket qua vao MLflow.
-
-    Tham so:
-        params     : dict chua cac sieu tham so cho RandomForestClassifier.
-        data_path  : duong dan den file du lieu huan luyen.
-        eval_path  : duong dan den file du lieu danh gia.
-
-    Tra ve:
-        accuracy (float): do chinh xac tren tap danh gia.
     """
 
     df_train = pd.read_csv(data_path)
@@ -36,6 +35,7 @@ def train(
     X_eval = df_eval.drop(columns=["target"])
     y_eval = df_eval["target"]
 
+    # Bắt đầu MLflow Run
     with mlflow.start_run():
         mlflow.log_params(params)
 

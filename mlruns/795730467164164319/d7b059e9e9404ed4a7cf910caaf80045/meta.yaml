@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Day21-Track2-CI-CD-for-AI-Systems/mlruns/795730467164164319/d7b059e9e9404ed4a7cf910caaf80045/artifacts
+end_time: 1778129144149
+entry_point_name: ''
+experiment_id: '795730467164164319'
+lifecycle_stage: active
+run_id: d7b059e9e9404ed4a7cf910caaf80045
+run_name: rebellious-koi-270
+run_uuid: d7b059e9e9404ed4a7cf910caaf80045
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1778129133859
+status: 3
+tags: []
+user_id: nguye

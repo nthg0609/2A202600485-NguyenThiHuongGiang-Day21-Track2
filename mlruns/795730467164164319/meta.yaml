@@ -1,0 +1,6 @@
+artifact_location: file:///D:/Day21-Track2-CI-CD-for-AI-Systems/mlruns/795730467164164319
+creation_time: 1778129133323
+experiment_id: '795730467164164319'
+last_update_time: 1778129133323
+lifecycle_stage: active
+name: RandomForest_Training

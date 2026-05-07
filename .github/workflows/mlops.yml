@@ -65,8 +65,9 @@ jobs:
         #        echo "AWS_SECRET_ACCESS_KEY=..." >> $GITHUB_ENV
         # Azure: echo "AZURE_STORAGE_CONNECTION_STRING=..." >> $GITHUB_ENV
         run: |
-          printf '%s' "${{ secrets.CLOUD_CREDENTIALS }}" > /tmp/sa-key.json
-          echo "GOOGLE_APPLICATION_CREDENTIALS=/tmp/sa-key.json" >> $GITHUB_ENV
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "AWS_DEFAULT_REGION=${{ secrets.AWS_DEFAULT_REGION }}" >> $GITHUB_ENV
 
       - name: Pull data with DVC
         # TODO 3: Pull cac file du lieu can thiet tu cloud storage bang lenh dvc pull.
@@ -103,14 +104,12 @@ jobs:
         run: |
           python - <<'EOF'
           import os
-          from google.cloud import storage
+          import boto3
 
           bucket_name = os.environ["CLOUD_BUCKET"]
-          client = storage.Client()
-          bucket = client.bucket(bucket_name)
-          blob = bucket.blob("models/latest/model.pkl")
-          blob.upload_from_filename("models/model.pkl")
-          print(f"Uploaded model to gs://{bucket_name}/models/latest/model.pkl")
+          s3 = boto3.client("s3")
+          s3.upload_file("models/model.pkl", bucket_name, "models/latest/model.pkl")
+          print(f"Uploaded model to s3://{bucket_name}/models/latest/model.pkl")
           EOF
 
       - name: Save metrics as artifact
