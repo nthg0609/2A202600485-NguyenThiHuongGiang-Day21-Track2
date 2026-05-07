@@ -118,7 +118,6 @@ jobs:
           name: metrics
           path: outputs/metrics.json
 
-
   # ---------------------------------------------------------------------------
   # JOB 3 - EVAL
   # Kiem tra nguong chat luong (accuracy >= 0.65).
