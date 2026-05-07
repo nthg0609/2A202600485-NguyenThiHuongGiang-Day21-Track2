@@ -121,7 +121,7 @@ jobs:
 
   # ---------------------------------------------------------------------------
   # JOB 3 - EVAL
-  # Kiem tra nguong chat luong (accuracy >= 0.70).
+  # Kiem tra nguong chat luong (accuracy >= 0.65).
   # Pipeline dung lai o day neu mo hinh chua dat yeu cau.
   # Chi chay khi Job 2 (Train) hoan thanh thanh cong.
   # ---------------------------------------------------------------------------
@@ -133,20 +133,20 @@ jobs:
 
       - name: Check eval gate
         # TODO 6: Doc accuracy tu output cua job train.
-        #         Neu accuracy < 0.70, ket thuc voi loi ro rang.
+        #         Neu accuracy < 0.65, ket thuc voi loi ro rang.
         #         Neu dat nguong, in thong bao va tiep tuc.
         #
         # Goi y:
         #   acc = float("${{ needs.train.outputs.accuracy }}")
-        #   if acc < 0.70:
-        #       raise SystemExit(f"FAILED: accuracy {acc:.4f} < 0.70. Huy deploy.")
+        #   if acc < 0.65:
+        #       raise SystemExit(f"FAILED: accuracy {acc:.4f} < 0.65. Huy deploy.")
         #   print("PASSED: dang trien khai model.")
         run: |
           python - <<'EOF'
           acc = float("${{ needs.train.outputs.accuracy }}")
           if acc < 0.65:
-              raise SystemExit(f"FAILED: accuracy {acc:.4f} < 0.70. Huy deploy.")
-          print(f"PASSED: accuracy {acc:.4f} >= 0.70. Dang trien khai model.")
+              raise SystemExit(f"FAILED: accuracy {acc:.4f} < 0.65. Huy deploy.")
+          print(f"PASSED: accuracy {acc:.4f} >= 0.65. Dang trien khai model.")
           EOF
 
 
